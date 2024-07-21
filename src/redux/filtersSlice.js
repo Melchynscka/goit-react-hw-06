@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
-  name: 'filters',
+  name: 'contacts',
   initialState: {
-    name: '',
+    items: [],
+    filter: ''
   },
   reducers: {
     changeFilter(state, action) {
-      state.name = action.payload;
+      state.filter = action.payload;
     },
   },
 });
@@ -15,14 +16,4 @@ const slice = createSlice({
 export const { changeFilter } = slice.actions;
 export default slice.reducer;
 
-export const selectNameFilter = state => {
-  const searchTerm = state.filters.name.toLowerCase().trim();
-
-  if (!searchTerm) {
-    return state.contacts.items;
-  }
-
-  return state.contacts.items.filter(contact =>
-    contact.name.toLowerCase().includes(searchTerm)
-  );
-};
+export const selectNameFilter = (state) => state.contacts.filter;

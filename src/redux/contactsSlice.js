@@ -35,3 +35,15 @@ const slice = createSlice({
 
 export const { deleteContact, addContact } = slice.actions;
 export default slice.reducer;
+export const selectContacts = (state) => state.contacts.items;
+export const selectFilteredContacts = state => {
+  const searchTerm = state.filters.name.toLowerCase().trim();
+
+  if (!searchTerm) {
+    return state.contacts.items;
+  }
+
+  return state.contacts.items.filter(contact =>
+    contact.name.toLowerCase().includes(searchTerm)
+  );
+};
